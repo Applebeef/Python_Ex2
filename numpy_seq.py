@@ -1,5 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 
 def half(x):
@@ -48,8 +47,4 @@ def segment(im, thresh=128):
 
 
 if __name__ == "__main__":
-    x = plt.imread(r"C:\Users\oroth\Desktop\Untitled.png")
-    x = (x * 255).astype(np.int32)
-    x = segment(x)
-    plt.imshow(x)
-    plt.show()
+    x = 3  # delete this line
