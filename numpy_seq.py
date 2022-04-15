@@ -40,5 +40,11 @@ def matrix_norm(x, k=1000):
     return np.max(u)
 
 
+def segment(im, thresh=128):
+    if im.ndim == 3:
+        im = im.mean(axis=2)
+    return np.where(im < thresh, 0, 255)
+
+
 if __name__ == "__main__":
-    print(matrix_norm(np.arange(4).reshape(2, 2)))
+    x = 3  # delete this line
