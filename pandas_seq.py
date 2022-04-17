@@ -19,6 +19,7 @@ def get_n_largest(df, n=0, how='col'):
     # TODO implement 2.7
     pass
 
+
 def upper(df):
     return df.apply(lambda x: x.apply(lambda y: y.upper() if isinstance(y, str) else y))
 
