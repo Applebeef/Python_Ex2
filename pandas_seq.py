@@ -16,16 +16,16 @@ def partial_eq(s1, s2):
 
 
 def get_n_largest(df: pd.DataFrame, n=0, how='col'):
-    # TODO solve without loop
+    values = np.copy(df.values)
+    values = values * -1
     if how == 'col':
-        res = pd.Series(index=df.columns)
-        for i in range(df.shape[1]):
-            res[i] = df.iloc[:, i].nlargest(n + 1).iloc[-1]
+        values.sort(axis=0)
+        values = values * -1
+        return pd.Series(index=df.columns, data=values[n])
     else:
-        res = pd.Series(index=df.index)
-        for i in range(df.shape[0]):
-            res[i] = df.iloc[i].nlargest(n + 1).iloc[-1]
-    return res
+        values.sort(axis=1)
+        values = values * -1
+        return pd.Series(index=df.index, data=values[:, n])
 
 
 def upper(df):
@@ -35,5 +35,4 @@ def upper(df):
 if __name__ == "__main__":
     df = pd.DataFrame(np.random.randint(0, 100, size=(5, 4)), columns=list('ABCD'))
     print(df)
-    print(get_n_largest(df, n=2, how='row'))
-    # print(df)
+    print(get_n_largest(df, n=3))
