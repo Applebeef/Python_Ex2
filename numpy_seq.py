@@ -47,7 +47,7 @@ def segment(im, thresh=128):
 
 
 # Ex 1.6
-def getMinorFromMat(A, i, j):  # Getting the new sub matrix without col j.
+def get_minor_from_mat(A, i, j):  # Getting the new sub matrix without col j.
     return [row[: j] + row[j + 1:] for row in (A[: i] + A[i + 1:])]
 
 
@@ -59,21 +59,33 @@ def det(A):  # Recursive func - Calculates the determinant of square matrix A.
     res = 0
     for col in range(len(A)):
         sign = (-1) ** col
-        subDet = det(getMinorFromMat(A, 0, col))
+        subDet = det(get_minor_from_mat(A, 0, col))
         res += (sign * A[0][col]) * subDet
 
     return res
 
 
 # Ex 1.8
-def linearville(robber, policeman):
+#def linearville(robber, policeman):
     # robber = numpy.ndarray of shape (h,n,d) of integers.
     # policeman = numpy.ndarray of shape (h,n) of integers.
-    print("Sgssg")
+    # if check_robber_array():
+    #     for hour in robber.size: # h hours int
+    #         for shop in hour.size: # n shops int
+    #             for day in shop.size: # d days int
+    #                 if day != 1 or day != 0:
+    #                     print("Wrong robber data - more than one robber")
+    #                     return False
+    #                 # if
+    # else:
+    #     print("Invalid robbery!")
+
+
+# def check_robber_array():
 
 
 # Ex 1.9
-def isAllElementsDistinct(matrix):
+def is_all_elements_distinct(matrix):
     size = len(matrix)
 
     elementsSet = set()
@@ -101,7 +113,7 @@ def is_magic(matrix):
     isValuesInColsAreSame = np.all(colsSum == colsSum[0])
 
     if isValuesInRowsAreSame and isValuesInColsAreSame and (
-            rowsSum[0] == colsSum[0] == sumDiagonal1) and isAllElementsDistinct(matrix):
+            rowsSum[0] == colsSum[0] == sumDiagonal1) and is_all_elements_distinct(matrix):
         return True
 
     return False
