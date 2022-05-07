@@ -1,4 +1,5 @@
 import math
+import numpy as np
 import pandas as pd
 
 
@@ -9,26 +10,23 @@ def three_x_plus_1(s: pd.Series) -> pd.Series:
 
 # Q2.2
 def reindex_up_down(s):
-    newIndeces = []
-
-    for indStr in s.index:
-        if indStr[0].isupper():
-            newIndeces.append(indStr.upper())
-        else:
-            newIndeces.append(indStr.lower())
-
-    s.index = newIndeces
+    ret_s = s.copy()
+    new_indices = pd.DataFrame(ret_s).apply(lambda ind: ind.name.upper() if ind.name[0].isupper() else ind.name.lower(), 1)
+    ret_s.index = new_indices.value
+    return ret_s
 
 
 # Q2.4
 def partial_sum(s):
-    sum = 0
+    sumOfValues = 0
 
-    for val in s.values:
-        if not pd.isna(val):
-            sum += abs(val)
+    # for val in s.values:
+    #     if not pd.isna(val):
+    #         sum += abs(val)
 
-    return math.sqrt(sum)
+    sumOfValues = s.sum(skipna=True)
+
+    return math.sqrt(sumOfValues)
 
 
 # Q2.6
@@ -75,15 +73,15 @@ if __name__ == "__main__":
     # print(three_x_plus_1(s))
 
     # Q2.2Tests
-    # s = pd.Series(index=["TaL", "EdsGS", "tAGDS", "eLA"], data=[1, 2, 3, 4])
-    # reindex_up_down(s)
-    # print(s)
+    s = pd.Series(index=["TaL", "EdsGS", "tAGDS", "eLA"], data=[1, 2, 3, 4])
+    reindex_up_down(s)
+    print(s)
 
     # Q2.4Tests
     # s = pd.Series([1.5, 2.9, None, -5.6, -2, 45])
     # print(partial_sum(s))
 
-    # Q2.6Test
+    # # Q2.6Test
     # df = pd.DataFrame({"name": [np.NAN, 'Batman', 'Catwoman'],
     #                    "toy": [np.NAN, 'Batmobile', 'Bullwhip'],
     #                    "born": [pd.NaT, pd.Timestamp("1940-04-25"), pd.NaT]})
