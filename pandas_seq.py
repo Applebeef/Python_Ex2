@@ -98,11 +98,15 @@ if __name__ == "__main__":
     # print(unique_dict(df, 'row'))
 
     # Q2.10Test
-    dames = pd.DataFrame.from_dict({'mary': ['john', 'mathew', 'dan'],
-                                    'sarah': ['mathew', 'john', 'dan'],
-                                    'eve': ['dan', 'mathew', 'john']}, orient='index')
-    gents = pd.DataFrame.from_dict({'john': ['mary', 'sarah', 'eve'],
-                                    'mathew': ['sarah', 'mary', 'eve'],
-                                    'dan': ['eve', 'mary', 'sarah']}, orient='index')
-    marriages = [('mary', 'john'), ('sarah', 'mathew'), ('eve', 'dan')]
-    print(stable_marriage(dames, gents, marriages))
+    # dames = pd.DataFrame.from_dict({'mary': ['john', 'mathew', 'dan'],
+    #                                 'sarah': ['mathew', 'john', 'dan'],
+    #                                 'eve': ['dan', 'mathew', 'john']}, orient='index')
+    # gents = pd.DataFrame.from_dict({'john': ['mary', 'sarah', 'eve'],
+    #                                 'mathew': ['sarah', 'mary', 'eve'],
+    #                                 'dan': ['eve', 'mary', 'sarah']}, orient='index')
+    # marriages = [('mary', 'john'), ('sarah', 'mathew'), ('eve', 'dan')]
+    # print(stable_marriage(dames, gents, marriages))
+
+    # df = pd.DataFrame(np.random.randint(0, 100, size=(5, 4)), columns=list('ABCD'))
+    # print(df)
+    # print(get_n_largest(df, n=3))
