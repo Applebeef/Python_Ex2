@@ -47,22 +47,8 @@ def segment(im, thresh=128):
 
 
 # Ex 1.6
-def get_minor_from_mat(A, i, j):  # Getting the new sub matrix without col j.
-    return [row[: j] + row[j + 1:] for row in (A[: i] + A[i + 1:])]
-
-
 def det(A):  # Recursive func - Calculates the determinant of square matrix A.
-    if len(A) == 2:
-        value = (A[0][0] * A[1][1]) - (A[1][0] * A[0][1])
-        return value
-
-    res = 0
-    for col in range(len(A)):
-        sign = (-1) ** col
-        subDet = det(get_minor_from_mat(A, 0, col))
-        res += (sign * A[0][col]) * subDet
-
-    return res
+    np.linalg.det(A)
 
 
 # Ex 1.8
@@ -85,15 +71,15 @@ def det(A):  # Recursive func - Calculates the determinant of square matrix A.
 
 
 # Ex 1.9
-def is_all_elements_distinct(matrix):
-    size = len(matrix)
-
-    elementsSet = set()
-    for i in range(0, size):
-        for j in range(0, size):
-            elementsSet.add(matrix[i][j])
-
-    return len(matrix)*len(matrix) == len(elementsSet)
+# def is_all_elements_distinct(matrix):
+#     size = len(matrix)
+#
+#     elementsSet = set()
+#     for i in range(0, size):
+#         for j in range(0, size):
+#             elementsSet.add(matrix[i][j])
+#
+#     return len(matrix)*len(matrix) == len(elementsSet)
 
 
 def is_magic(matrix):
@@ -113,7 +99,7 @@ def is_magic(matrix):
     isValuesInColsAreSame = np.all(colsSum == colsSum[0])
 
     if isValuesInRowsAreSame and isValuesInColsAreSame and (
-            rowsSum[0] == colsSum[0] == sumDiagonal1) and is_all_elements_distinct(matrix):
+            rowsSum[0] == colsSum[0] == sumDiagonal1) and len(set(matrix)) == len(matrix):
         return True
 
     return False
