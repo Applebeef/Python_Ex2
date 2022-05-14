@@ -3,15 +3,41 @@ import numpy as np
 import pandas as pd
 
 
-def three_x_plus_1(s: pd.Series) -> pd.Series:
-    # can we use numpy in this part? if so, we can use np.where()
-    return s.apply(lambda x: x / 2 if x % 2 == 0 else 3 * x + 1)
+def three_x_plus_1(s):
+    return pd.Series(np.where(s % 2 == 0, s / 2, 3 * s + 1))
+
+
+def no_nans_idx(s):
+    return pd.Series(index=s.values, data=np.where(np.isnan(s), False, True))
+
+
+def partial_eq(s1, s2):
+    indexes = s1.index.intersection(s2.index)
+    return pd.Series(index=indexes, data=np.where(s1[indexes] == s2[indexes], True, False))
+
+
+def get_n_largest(df: pd.DataFrame, n=0, how='col'):
+    values = np.copy(df.values)
+    values = values * -1
+    if how == 'col':
+        values.sort(axis=0)
+        values = values * -1
+        return pd.Series(index=df.columns, data=values[n])
+    else:
+        values.sort(axis=1)
+        values = values * -1
+        return pd.Series(index=df.index, data=values[:, n])
+
+
+def upper(df):
+    return df.apply(lambda x: x.apply(lambda y: y.upper() if isinstance(y, str) else y))
 
 
 # Q2.2
 def reindex_up_down(s):
     ret_s = s.copy()
-    new_indices = pd.DataFrame(ret_s).apply(lambda ind: ind.name.upper() if ind.name[0].isupper() else ind.name.lower(), 1)
+    new_indices = pd.DataFrame(ret_s) \
+        .apply(lambda ind: ind.name.upper() if ind.name[0].isupper() else ind.name.lower(), 1)
     ret_s.index = new_indices.value
     return ret_s
 
